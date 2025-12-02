@@ -1,15 +1,12 @@
 
 package net.javaguides.banking.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import net.javaguides.banking.dto.AmountRequestDto;
 import net.javaguides.banking.dto.PageResponseDTO;
 import net.javaguides.banking.dto.TransactionDTO;
 import net.javaguides.banking.enums.TransactionType;
 import net.javaguides.banking.exception.InsufficientAmountException;
-import org.hamcrest.CoreMatchers;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -31,35 +28,27 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import net.javaguides.banking.dto.AccountDto;
 import net.javaguides.banking.exception.AccountNotFoundException;
 import net.javaguides.banking.security.AccountSecurityService;
-import net.javaguides.banking.security.jwt.JwtUtils;
-import net.javaguides.banking.security.services.UserDetailsServiceImpl;
 import net.javaguides.banking.service.AccountService;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.math.BigDecimal;
-import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.when;
 
 /**
  * 針對 AccountController 的 Web Layer 測試。

@@ -14,7 +14,6 @@ import net.javaguides.banking.mapper.AccountMapper;
 import net.javaguides.banking.repository.AccountRepository;
 import net.javaguides.banking.repository.TransactionRepository;
 import net.javaguides.banking.repository.UserRepository;
-import net.javaguides.banking.security.services.UserDetailsImpl;
 import net.javaguides.banking.service.AccountService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +22,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -62,14 +62,13 @@ public class AccountServiceImpl implements AccountService {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-        UserDetailsImpl userDetails=(UserDetailsImpl)auth.getPrincipal();
 
-        Long currentUserId = userDetails.getId();
+        Jwt jwt=(Jwt) auth.getPrincipal();
 
-        logger.info("已登入使用者ID:{} 嘗試創進新帳戶", currentUserId);
+        String username = jwt.getClaimAsString("preferred_username");
 
 
-        User user = userRepository.findById(currentUserId).orElseThrow(() -> new RuntimeException("Logged-in user not found in database with id: " + currentUserId));
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("Logged-in user not found in database with id"));
 
 
         Account account = accountMapper.mapTOAccount(accountDto);
