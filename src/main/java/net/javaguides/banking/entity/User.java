@@ -30,10 +30,10 @@ import java.util.Set;
                 @UniqueConstraint(columnNames = "email")
         })
 public class User{
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private Long userId;
+    private String userId;
 
     @NotBlank
     @Size(max = 20)
@@ -46,38 +46,20 @@ public class User{
     @Column(name = "email")
     private String email;
 
-    @Size(max = 120)
-    @Column(name = "password")
-    @JsonIgnore
-    private String password;
 
     @NotNull
     @Size(min = 3,max = 100)
     @Column(name = "real_name")
     private String realName;
 
+
+
     @OneToMany(mappedBy = "user",cascade = CascadeType.PERSIST,fetch = FetchType.LAZY,orphanRemoval = true)
     @JsonManagedReference
     private List<Account> accounts=new ArrayList<>();
 
 
-    private boolean accountNonLocked = true;
-    private boolean accountNonExpired = true;
-    private boolean credentialsNonExpired = true;
-    private boolean enabled = true;
 
-    private LocalDate credentialsExpiryDate;
-    private LocalDate accountExpiryDate;
-
-    private String twoFactorSecret;
-    private boolean isTwoFactorEnabled = false;
-    private String signUpMethod;
-
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
-    @JoinColumn(name = "role_id", referencedColumnName = "role_id")
-    @JsonBackReference
-    @ToString.Exclude
-    private Role role;
 
     @CreationTimestamp
     @Column(updatable = false)
@@ -86,10 +68,9 @@ public class User{
     @UpdateTimestamp
     private LocalDateTime updatedDate;
 
-    public User(String userName, String email, String password, String realName) {
+    public User(String userName, String email,  String realName) {
         this.username = userName;
         this.email = email;
-        this.password = password;
         this.realName = realName;
     }
 
@@ -97,6 +78,7 @@ public class User{
         this.username = userName;
         this.email = email;
     }
+
 
     @Override
     public boolean equals(Object o) {

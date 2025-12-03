@@ -3,7 +3,6 @@ package net.javaguides.banking.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import net.javaguides.banking.entity.Role;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -25,7 +24,6 @@ public class UserDTO {
     private String twoFactorSecret;
     private boolean isTwoFactorEnabled;
     private String signUpMethod;
-    private Role role;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
 }

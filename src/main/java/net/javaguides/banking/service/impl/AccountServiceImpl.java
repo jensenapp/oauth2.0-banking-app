@@ -67,13 +67,16 @@ public class AccountServiceImpl implements AccountService {
 
         String username = jwt.getClaimAsString("preferred_username");
 
+        String uuid = jwt.getClaimAsString("sub");
 
-        User user = userRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("Logged-in user not found in database with id"));
+        User user = userRepository.findById(uuid).orElseThrow(() -> new RuntimeException("Logged-in user not found in database with id"));
 
 
         Account account = accountMapper.mapTOAccount(accountDto);
 
-        account.setAccountHolderName(user.getRealName());
+        String ralName = jwt.getClaimAsString("name");
+
+        account.setAccountHolderName(ralName);
 
         account.setUser(user);
 

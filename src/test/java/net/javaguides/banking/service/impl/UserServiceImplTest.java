@@ -1,10 +1,7 @@
 package net.javaguides.banking.service.impl;
 
 import net.javaguides.banking.dto.UserDTO;
-import net.javaguides.banking.entity.AppRole;
-import net.javaguides.banking.entity.Role;
 import net.javaguides.banking.entity.User;
-import net.javaguides.banking.repository.RoleRepository;
 import net.javaguides.banking.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -21,7 +18,6 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
